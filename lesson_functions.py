@@ -2,6 +2,7 @@ import matplotlib.image as mpimg
 import numpy as np
 import cv2
 from skimage.feature import hog
+import matplotlib.pyplot as plt
 # Define a function to return HOG features and visualization
 def get_hog_features(img, orient, pix_per_cell, cell_per_block, 
                         vis=False, feature_vec=True):
@@ -104,11 +105,13 @@ def extract_features(imgs, color_space='RGB', spatial_size=(32, 32),
     features = []
     # Iterate through the list of images
     for file in imgs:
+        
+        img = plt.imread(file)
         file_features = single_img_features(img, color_space=color_space, spatial_size=spatial_size,
                         hist_bins=hist_bins, orient=orient, 
                         pix_per_cell=pix_per_cell, cell_per_block=cell_per_block, hog_channel=hog_channel,
                         spatial_feat=spatial_feat, hist_feat=hist_feat, hog_feat=hog_feat)
-                        
+
         features.append(file_features)
     # Return list of feature vectors
     return features
