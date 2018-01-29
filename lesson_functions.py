@@ -46,16 +46,7 @@ def color_hist(img, nbins=32, bins_range=(0, 256)):
     # Return the individual histograms, bin_centers and feature vector
     return hist_features
 
-# Define a function to extract features from a single image window
-# This function is very similar to extract_features()
-# just for a single image rather than list of images
-def single_img_features(img, color_space='RGB', spatial_size=(32, 32),
-                        hist_bins=32, orient=9, 
-                        pix_per_cell=8, cell_per_block=2, hog_channel=0,
-                        spatial_feat=True, hist_feat=True, hog_feat=True):    
-    #1) Define an empty list to receive features
-    img_features = []
-    #2) Apply color conversion if other than 'RGB'
+def convert_color(img, color_space='YCrCb'):
     if color_space != 'RGB':
         if color_space == 'HSV':
             feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
@@ -67,7 +58,21 @@ def single_img_features(img, color_space='RGB', spatial_size=(32, 32),
             feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2YUV)
         elif color_space == 'YCrCb':
             feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2YCrCb)
-    else: feature_image = np.copy(img)      
+    else: feature_image = np.copy(img) 
+    return feature_image 
+# Define a function to extract features from a single image window
+# This function is very similar to extract_features()
+# just for a single image rather than list of images
+def single_img_features(img, color_space='RGB', spatial_size=(32, 32),
+                        hist_bins=32, orient=9, 
+                        pix_per_cell=8, cell_per_block=2, hog_channel=0,
+                        spatial_feat=True, hist_feat=True, hog_feat=True):    
+    #1) Define an empty list to receive features
+    img_features = []
+    #2) Apply color conversion if other than 'RGB'
+    feature_image = convert_color(img, color_space)
+    # if np.amax(img) > 10:
+    #     img = img.astype(np.float32)/255
     #3) Compute spatial features if flag is set
     if spatial_feat == True:
         spatial_features = bin_spatial(feature_image, size=spatial_size)
@@ -106,12 +111,20 @@ def extract_features(imgs, color_space='RGB', spatial_size=(32, 32),
     # Iterate through the list of images
     for file in imgs:
         
-        img = plt.imread(file)
+        # img = plt.imread(file)
+        img = cv2.imread(file)
         file_features = single_img_features(img, color_space=color_space, spatial_size=spatial_size,
                         hist_bins=hist_bins, orient=orient, 
                         pix_per_cell=pix_per_cell, cell_per_block=cell_per_block, hog_channel=hog_channel,
                         spatial_feat=spatial_feat, hist_feat=hist_feat, hog_feat=hog_feat)
+        features.append(file_features)
+        # argument
+        img=cv2.flip(img,1)
 
+        file_features = single_img_features(img, color_space=color_space, spatial_size=spatial_size,
+                        hist_bins=hist_bins, orient=orient, 
+                        pix_per_cell=pix_per_cell, cell_per_block=cell_per_block, hog_channel=hog_channel,
+                        spatial_feat=spatial_feat, hist_feat=hist_feat, hog_feat=hog_feat)
         features.append(file_features)
     # Return list of feature vectors
     return features
@@ -174,15 +187,10 @@ def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
 
 
 
-def convert_color(img, conv='RGB2YCrCb'):
-    if conv == 'RGB2YCrCb':
-        return cv2.cvtColor(img, cv2.COLOR_RGB2YCrCb)
-    if conv == 'BGR2YCrCb':
-        return cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
-    if conv == 'RGB2LUV':
-        return cv2.cvtColor(img, cv2.COLOR_RGB2LUV)
 
-
+def showImg(image):
+    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    plt.show()
 
 
                         
