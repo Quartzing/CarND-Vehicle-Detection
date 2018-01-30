@@ -49,15 +49,15 @@ def color_hist(img, nbins=32, bins_range=(0, 256)):
 def convert_color(img, color_space='YCrCb'):
     if color_space != 'RGB':
         if color_space == 'HSV':
-            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+            feature_image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         elif color_space == 'LUV':
-            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2LUV)
+            feature_image = cv2.cvtColor(img, cv2.COLOR_BGR2LUV)
         elif color_space == 'HLS':
-            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
+            feature_image = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
         elif color_space == 'YUV':
-            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2YUV)
+            feature_image = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
         elif color_space == 'YCrCb':
-            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2YCrCb)
+            feature_image = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
     else: feature_image = np.copy(img) 
     return feature_image 
 # Define a function to extract features from a single image window

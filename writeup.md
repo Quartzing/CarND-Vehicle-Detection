@@ -90,7 +90,24 @@ Here's a [link to my video result](./project_video_out.mp4)
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
 I recorded the positions of positive detections in each frame of the video.  Here are one of the corresponding heatmaps comparing to the resulting bounding boxes are drawn onto the test image in the series:
-![alt text](writeup_img/heatmap.png)
+![alt text](writeup_img/heatmap1.png)
+![alt text](writeup_img/heatmap2.png)
+![alt text](writeup_img/heatmap3.png)
+![alt text](writeup_img/heatmap4.png)
+![alt text](writeup_img/heatmap5.png)
+![alt text](writeup_img/heatmap6.png)
 
+---
 
+### Discussion
 
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+
+The pipeline has following issues:
+1. High rate of false positive and negtives
+2. The speed is very slow, it cannot work in real time.
+3. The parameters are manually tuned, and is not general enough.
+4. The predicted bounding boxes are not stable
+
+For issues 1-3, my suggestion is to use deep learning algorithms (e.g. SSD, Yolo, faster RCNN, etc.) to replace the search window and svm;
+For issue 4, my suggestion would be applying Kalman filter.
