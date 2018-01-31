@@ -60,17 +60,19 @@ I tried various combinations of parameters and...
 I trained a linear SVM using linearSVC.
 ```
 Using: 9 orientations 8 pixels per cell and 2 cells per block
-Feature vector length: 2628
-7.7 Seconds to train SVC...
-Test Accuracy of SVC =  0.9875
-Predictions:  [ 1.  1.  1.  0.  0.  1.  1.  0.  0.  0.]
-Actual data:  [ 1.  1.  1.  0.  0.  1.  1.  0.  0.  0.]
-0.00152 Seconds to predict 10 labels with SVC
+Feature vector length: 6156
+16.11 Seconds to train SVC...
+Test Accuracy of SVC =  0.9923
+Predictions:  [ 1.  1.  1.  1.  0.  0.  1.  1.  0.  1.]
+Actual data:  [ 1.  1.  1.  1.  0.  0.  1.  1.  0.  1.]
+0.00155 Seconds to predict 10 labels with SVC
 ```
 
 ### Sliding Window Search
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+
+Several combinations of the sliding windows are considered as shown below. After trial for all of them the final sliding window parameters are choosen as xy_window=(96, 96), xy_overlap=(0.75, 0.75).
 
 ![alt text][image3]
 
