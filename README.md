@@ -1,5 +1,3 @@
-###Vehicle Detection (classic approach)
-
 
 [//]: # (Image References)
 [image1]: ./writeup_img/car_nocar.png
