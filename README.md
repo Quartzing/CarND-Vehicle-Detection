@@ -1,4 +1,4 @@
-#Vehicle Detection (classic approach)
+###Vehicle Detection (classic approach)
 
 
 [//]: # (Image References)
